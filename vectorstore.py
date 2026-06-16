@@ -1,12 +1,9 @@
 from pinecone import Pinecone
-import os
-from dotenv import load_dotenv
 from typing import List
+from config_secrets import get_secret
 
-load_dotenv()
-
-pinecone_client = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
-index = pinecone_client.Index(os.getenv("PINECONE_INDEX_NAME"))
+pinecone_client = Pinecone(api_key=get_secret("PINECONE_API_KEY"))
+index = pinecone_client.Index(get_secret("PINECONE_INDEX_NAME"))
 
 def store_in_pinecone(chunks: List[str], embeddings: List[List[float]], namespace: str = ""):
     vector_to_upsert = []

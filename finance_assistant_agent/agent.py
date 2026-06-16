@@ -1,10 +1,13 @@
 from google import genai
-from os import getenv
 from google.adk.agents import LlmAgent
 from typing import Dict
 from google.adk.tools.agent_tool import AgentTool
 from investment_plan_agent.agent import investment_plan_agent
 from google.adk.models import google_llm
+from config_secrets import get_secret
+import os
+
+os.environ["GOOGLE_API_KEY"] = get_secret("GOOGLE_API_KEY")
 
 
 

@@ -1,18 +1,11 @@
-from dotenv import load_dotenv
 from pinecone import Pinecone
-# from langchain_groq import ChatGroq
-# from langchain_pinecone import PineconeVectorStore
-# from langchain_huggingface import HuggingFaceEmbeddings
 from groq import Groq
 from sentence_transformers import SentenceTransformer
+from config_secrets import get_secret
 
-import os
-
-load_dotenv()
-
-groq_api_key = Groq(api_key=os.getenv("GROQ_API_KEY"))
-pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
-index_name = pc.Index(os.getenv("PINECONE_INDEX_NAME"))
+groq_api_key = Groq(api_key=get_secret("GROQ_API_KEY"))
+pc = Pinecone(api_key=get_secret("PINECONE_API_KEY"))
+index_name = pc.Index(get_secret("PINECONE_INDEX_NAME"))
 # index = pc.Index(index_name)
 
 # embedding_engine = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
