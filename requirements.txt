@@ -15,4 +15,3 @@ langchain_text_splitters
 sentence-transformers
 langchain_pinecone
 langchain_huggingface
-secrets
