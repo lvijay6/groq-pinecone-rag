@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Agentic AI with GDC — Architecture</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    body { font-family: sans-serif; background: #f4f6f9; display: flex; flex-direction: column; align-items: center; padding: 40px; }
+    h1 { color: #232f3e; margin-bottom: 8px; }
+    p  { color: #555; margin-bottom: 32px; }
+    .diagram-box { background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); padding: 40px 60px; }
+  </style>
+</head>
+<body>
+  <h1>Agentic AI with GDC — Architecture</h1>
+  <p>Multi-agent finance assistant powered by Google ADK &amp; Gemini 2.5 Flash</p>
+
+  <div class="diagram-box">
+    <div class="mermaid">
+flowchart TD
+    User(["👤 User"])
+
+    subgraph FA ["finance_assistant_agent  (root_agent)"]
+        direction TB
+        FAAgent["LlmAgent\ngemini-2.5-flash"]
+        Tool1["🔧 get_user_finance_details()\n────────────────────────\nmonthly_salary · other_income\nexpenses · existing_investments\ndebts · risk_appetite · goals"]
+    end
+
+    subgraph IPA ["investment_plan_agent"]
+        direction TB
+        IPAgent["LlmAgent\ngemini-2.5-flash"]
+        GSearch["🔍 google_search\n(Google ADK built-in tool)"]
+    end
+
+    subgraph GDK ["Google ADK Runtime"]
+        AgentTool["AgentTool wrapper"]
+    end
+
+    User -->|"finance / investment query"| FAAgent
+    FAAgent -->|"1 · fetch profile"| Tool1
+    Tool1 -->|"user financial data"| FAAgent
+    FAAgent -->|"2 · delegate via AgentTool"| AgentTool
+    AgentTool --> IPAgent
+    IPAgent -->|"search for investment options"| GSearch
+    GSearch -->|"live market data"| IPAgent
+    IPAgent -->|"investment recommendation"| AgentTool
+    AgentTool -->|"structured plan"| FAAgent
+    FAAgent -->|"final advice"| User
+
+    style FA   fill:#e8f4fd,stroke:#2196f3,stroke-width:2px
+    style IPA  fill:#e8f9ee,stroke:#4caf50,stroke-width:2px
+    style GDK  fill:#fff8e1,stroke:#ff9800,stroke-width:2px
+    style User fill:#232f3e,color:#fff,stroke:none
+    </div>
+  </div>
+
+  <script>mermaid.initialize({ startOnLoad: true, theme: "default" });</script>
+</body>
+</html>

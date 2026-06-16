@@ -1,0 +1,17 @@
+google-adk
+python-dotenv
+langgraph 
+langchain-google-genai 
+langchain-openai
+langchain_groq
+pypdf
+pdfreader
+PyPDF2
+pinecone
+langchain-community
+sentence-transformers
+langchain-community
+langchain_text_splitters
+sentence-transformers
+langchain_pinecone
+langchain_huggingface
